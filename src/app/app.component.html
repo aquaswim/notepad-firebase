@@ -1,1 +1,12 @@
-<h1>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid amet asperiores commodi cum deleniti doloribus dolorum ea enim excepturi ipsa laborum neque, nobis odit omnis recusandae reiciendis reprehenderit sit voluptates.</h1>
+<div class="container">
+  <div class="card mt-4">
+    <header class="card-header">
+      <p class="card-header-title">
+        {{title}}
+      </p>
+    </header>
+    <div class="card-content">
+      <app-texteditor [isLoading]="isLoading" (changed)="onChange($event)"></app-texteditor>
+    </div>
+  </div>
+</div>
