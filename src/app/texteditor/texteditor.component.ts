@@ -25,7 +25,12 @@ export class TexteditorComponent implements OnInit, OnDestroy {
       .valueChanges
       .pipe(debounceTime(this.debounceTime))
       .subscribe((data: string) => {
+        // only emit event if value is different
+        if (this.value === data) {
+          return;
+        }
         this.changed.emit(data);
+        this.value = data;
       });
   }
 
