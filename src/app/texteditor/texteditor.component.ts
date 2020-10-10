@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {debounceTime} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
@@ -8,11 +8,11 @@ import {Subscription} from 'rxjs';
   templateUrl: './texteditor.component.html',
   styleUrls: ['./texteditor.component.css']
 })
-export class TexteditorComponent implements OnInit, OnDestroy {
+export class TexteditorComponent implements OnInit, OnDestroy, OnChanges {
   row = 8;
   inputCtrl = new FormControl('');
   inputSubscription: Subscription;
-  debounceTime = 1000;
+  debounceTime = 250;
   @Input() value: string;
   @Input() isLoading = false;
   @Output() changed = new EventEmitter<string>();
@@ -36,5 +36,15 @@ export class TexteditorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.inputSubscription.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.hasOwnProperty('value')) {
+      const valueChange = changes.value;
+      if (!valueChange.isFirstChange()) {
+        this.value = valueChange.currentValue;
+        this.inputCtrl.setValue(valueChange.currentValue, { emitEvent: false});
+      }
+    }
   }
 }
