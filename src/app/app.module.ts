@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { TexteditorComponent } from './texteditor/texteditor.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import {ReactiveFormsModule} from '@angular/forms';
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [],
   bootstrap: [AppComponent]
