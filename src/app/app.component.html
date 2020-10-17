@@ -6,7 +6,7 @@
       </p>
     </header>
     <div class="card-content">
-      <app-texteditor [isLoading]="isLoading" (changed)="onChange($event)"></app-texteditor>
+      <app-texteditor [isLoading]="isLoading" (changed)="onChange($event)" [value]="text"></app-texteditor>
     </div>
   </div>
 </div>
