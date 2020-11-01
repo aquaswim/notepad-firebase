@@ -7,6 +7,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFirePerformanceModule, PerformanceMonitoringService} from '@angular/fire/performance';
 
 @NgModule({
   declarations: [
@@ -17,9 +18,12 @@ import {AngularFireDatabaseModule} from '@angular/fire/database';
     BrowserModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFirePerformanceModule
   ],
-  providers: [],
+  providers: [
+    PerformanceMonitoringService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
