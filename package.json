@@ -24,7 +24,7 @@
     "bulma": "^0.9.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.3",
-    "zone.js": "~0.11.2",
+    "zone.js": "~0.11.3",
     "firebase": "^7.13.1"
   },
   "devDependencies": {
