@@ -18,8 +18,8 @@ import {AngularFirePerformanceModule, PerformanceMonitoringService} from '@angul
     BrowserModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirePerformanceModule,
     AngularFireDatabaseModule,
-    AngularFirePerformanceModule
   ],
   providers: [
     PerformanceMonitoringService
