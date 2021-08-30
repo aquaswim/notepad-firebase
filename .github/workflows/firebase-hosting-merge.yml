@@ -20,6 +20,7 @@ jobs:
           projectId: firenote-18b62
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
+          FIREBASE_APIKEY: '${{ secrets.FIREBASE_APIKEY }}'
           FIREBASE_AUTHDOMAIN: '${{ secrets.FIREBASE_AUTHDOMAIN }}'
           FIREBASE_DATABASEURL: '${{ secrets.FIREBASE_DATABASEURL }}'
           FIREBASE_PROJECTID: '${{ secrets.FIREBASE_PROJECTID }}'
