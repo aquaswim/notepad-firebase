@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NativeRouterService} from './native-router.service';
 import {NoteService} from './note.service';
 import {Subscription} from 'rxjs';
+import {encrypt, decrypt} from './helpers/crypto';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +16,19 @@ export class AppComponent implements OnInit, OnDestroy{
   id: string;
   noteUpdateListener: Subscription;
   text = '';
+  isProtected = true;
+  password = 'password';
+  unlocked = true;
 
   constructor(private router: NativeRouterService, private noteService: NoteService) {}
 
   onChange(text: string): void {
     this.isLoading = true;
-    this.noteService.saveNote(this.id, text)
+    if (!this.unlocked) {
+      return;
+    }
+    const updatedText = this.isProtected ? encrypt(text, this.password) : text;
+    this.noteService.saveNote(this.id, updatedText, this.isProtected)
       .catch(err => {
         alert('error saving data to db');
         console.error(err);
@@ -41,10 +49,13 @@ export class AppComponent implements OnInit, OnDestroy{
       .noteService
       .getNoteListener(this.id)
       .subscribe(value => {
-        this.isLoading = false;
-        if (value) {
+        this.isProtected = value.protected;
+        if (this.isProtected) {
+          this.text = decrypt(value.text, this.password);
+        } else {
           this.text = value.text;
         }
+        this.isLoading = false;
       });
   }
 

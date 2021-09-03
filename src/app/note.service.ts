@@ -14,9 +14,10 @@ export class NoteService {
     return this.db.object<IDBNote>(id).valueChanges().pipe(trace('getNote'));
   }
 
-  saveNote(id: string, text: string): Promise<void> {
+  saveNote(id: string, text: string, isProtected = false): Promise<void> {
     return this.db.object<IDBNote>(id).set({
-      text
+      text,
+      protected: isProtected
     });
   }
 
