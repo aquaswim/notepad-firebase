@@ -1,0 +1,23 @@
+<div class="columns is-mobile is-centered">
+  <div class="column is-half is-one-quarter-desktop">
+    <div class="has-text-centered">
+      <p class="title is-2">The Note Is Locked</p>
+      <form [formGroup]="unlockForm" (ngSubmit)="onSubmit()">
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input is-medium" type="password" placeholder="Password" formControlName="password" [class.is-danger]="passwordInvalid">
+            <p *ngIf="unlockForm.get('password').invalid && (unlockForm.dirty || unlockForm.untouched)" class="help is-danger">
+              Please input the password
+            </p>
+            <p *ngIf="passwordInvalid" class="help is-danger">
+              Password is invalid
+            </p>
+          </div>
+          <div class="control">
+            <button class="button is-medium" type="submit" [class.is-danger]="passwordInvalid">Unlock</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

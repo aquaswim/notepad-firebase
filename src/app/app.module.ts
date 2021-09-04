@@ -6,13 +6,17 @@ import { TexteditorComponent } from './texteditor/texteditor.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
+import {AngularFireDatabaseModule, USE_EMULATOR as USE_DATABASE_EMULATOR} from '@angular/fire/database';
 import {AngularFirePerformanceModule, PerformanceMonitoringService} from '@angular/fire/performance';
+import { LockerComponent } from './locker/locker.component';
+import { SettingComponent } from './setting/setting.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TexteditorComponent
+    TexteditorComponent,
+    LockerComponent,
+    SettingComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +26,8 @@ import {AngularFirePerformanceModule, PerformanceMonitoringService} from '@angul
     AngularFireDatabaseModule,
   ],
   providers: [
-    PerformanceMonitoringService
+    PerformanceMonitoringService,
+    { provide: USE_DATABASE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9000] : undefined },
   ],
   bootstrap: [AppComponent]
 })

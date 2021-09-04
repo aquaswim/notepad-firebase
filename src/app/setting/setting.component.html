@@ -1,0 +1,29 @@
+<div>
+  <form [formGroup]="settingForm" (ngSubmit)="onSubmit()">
+    <div class="field is-horizontal">
+      <div class="field-label is-normal">
+        <label class="label">Protect With Password</label>
+      </div>
+      <div class="field-body">
+        <div class="field has-addons">
+          <p class="control">
+        <span class="select">
+          <select formControlName="isProtected">
+            <option value="false">Off</option>
+            <option value="true">On</option>
+          </select>
+        </span>
+          </p>
+          <p class="control is-expanded">
+            <input [attr.disabled]="settingForm.get('isProtected').value === 'false' ? '' : null" class="input" type="password" placeholder="Password" formControlName="password">
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="field is-grouped is-grouped-centered">
+      <div class="control">
+        <button class="button is-link" type="submit">Save</button>
+      </div>
+    </div>
+  </form>
+</div>

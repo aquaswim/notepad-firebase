@@ -2,6 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NativeRouterService} from './native-router.service';
 import {NoteService} from './note.service';
 import {Subscription} from 'rxjs';
+import {encrypt, decrypt} from './helpers/crypto';
+import {SettingModel} from './setting/setting.model';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +17,21 @@ export class AppComponent implements OnInit, OnDestroy{
   id: string;
   noteUpdateListener: Subscription;
   text = '';
+  isProtected = false;
+  password = '';
+  unlocked = true;
+  passwordInvalid = false;
+  activeTab = 'editor';
 
   constructor(private router: NativeRouterService, private noteService: NoteService) {}
 
   onChange(text: string): void {
     this.isLoading = true;
-    this.noteService.saveNote(this.id, text)
+    if (!this.unlocked) {
+      return;
+    }
+    const updatedText = this.isProtected ? encrypt(text, this.password) : text;
+    this.noteService.saveNote(this.id, updatedText, this.isProtected)
       .catch(err => {
         alert('error saving data to db');
         console.error(err);
@@ -41,10 +52,24 @@ export class AppComponent implements OnInit, OnDestroy{
       .noteService
       .getNoteListener(this.id)
       .subscribe(value => {
-        this.isLoading = false;
-        if (value) {
-          this.text = value.text;
+        // cek is it new note or not
+        if (!value) {
+          return;
         }
+
+        this.isProtected = value.protected;
+        if (this.isProtected) {
+          this.text = decrypt(value.text, this.password);
+          if (this.text === null) {
+            // locked text
+            this.text = value.text;
+            this.unlocked = false;
+          }
+        } else {
+          this.text = value.text;
+          this.unlocked = true;
+        }
+        this.isLoading = false;
       });
   }
 
@@ -59,5 +84,22 @@ export class AppComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this.noteUpdateListener.unsubscribe();
+  }
+
+  cekPassword(password: string): void {
+    const content = decrypt(this.text, password);
+    if (content) {
+      this.unlocked = true;
+      this.password = password;
+      this.text = content;
+    } else {
+      this.passwordInvalid = true;
+    }
+  }
+
+  settingChanged(newSetting: SettingModel): void {
+    this.isProtected = newSetting.isProtected;
+    this.password = newSetting.password || '';
+    this.activeTab = 'editor';
   }
 }

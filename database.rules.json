@@ -4,6 +4,7 @@
       ".read": true,
       ".write": true,
       "text": { ".validate": true },
+      "protected": { ".validate": true },
       "$other": { ".validate": false }
     }
   }

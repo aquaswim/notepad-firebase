@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  firebase: envconfig.firebase
+  firebase: envconfig.firebase,
+  useEmulators: true
 };
 
 /*
