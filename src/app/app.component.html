@@ -6,7 +6,24 @@
       </p>
     </header>
     <div class="card-content">
-      <app-texteditor *ngIf="unlocked" [isLoading]="isLoading" (changed)="onChange($event)" [value]="text"></app-texteditor>
+      <div *ngIf="unlocked">
+        <div class="tabs is-small is-toggle is-fullwidth">
+          <ul>
+            <li [class.is-active]="activeTab==='editor'">
+              <a (click)="activeTab='editor'">
+                <span>Note</span>
+              </a>
+            </li>
+            <li [class.is-active]="activeTab==='setting'">
+              <a (click)="activeTab='setting'">
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <app-texteditor *ngIf="activeTab === 'editor'" [isLoading]="isLoading" (changed)="onChange($event)" [value]="text"></app-texteditor>
+        <app-setting *ngIf="activeTab === 'setting'" (changed)="settingChanged($event)" [isProtected]="isProtected"></app-setting>
+      </div>
       <app-locker *ngIf="!unlocked" (cekPassword)="cekPassword($event)" [passwordInvalid]="passwordInvalid"></app-locker>
     </div>
   </div>

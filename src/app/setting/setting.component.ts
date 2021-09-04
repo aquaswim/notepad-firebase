@@ -17,10 +17,10 @@ export class SettingComponent implements OnInit {
   });
 
   constructor() {
-    this.settingForm.get('isProtected').setValue(this.isProtected ? 'true' : 'false');
   }
 
   ngOnInit(): void {
+    this.settingForm.get('isProtected').setValue(this.isProtected ? 'true' : 'false');
   }
 
   onSubmit(): void {

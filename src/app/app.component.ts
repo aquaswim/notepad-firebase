@@ -3,6 +3,7 @@ import {NativeRouterService} from './native-router.service';
 import {NoteService} from './note.service';
 import {Subscription} from 'rxjs';
 import {encrypt, decrypt} from './helpers/crypto';
+import {SettingModel} from './setting/setting.model';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit, OnDestroy{
   password = '';
   unlocked = true;
   passwordInvalid = false;
+  activeTab = 'editor';
 
   constructor(private router: NativeRouterService, private noteService: NoteService) {}
 
@@ -93,5 +95,11 @@ export class AppComponent implements OnInit, OnDestroy{
     } else {
       this.passwordInvalid = true;
     }
+  }
+
+  settingChanged(newSetting: SettingModel): void {
+    this.isProtected = newSetting.isProtected;
+    this.password = newSetting.password || '';
+    this.activeTab = 'editor';
   }
 }
