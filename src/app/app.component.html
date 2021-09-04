@@ -6,7 +6,8 @@
       </p>
     </header>
     <div class="card-content">
-      <app-texteditor [isLoading]="isLoading" (changed)="onChange($event)" [value]="text"></app-texteditor>
+      <app-texteditor *ngIf="unlocked" [isLoading]="isLoading" (changed)="onChange($event)" [value]="text"></app-texteditor>
+      <app-locker *ngIf="!unlocked" (cekPassword)="cekPassword($event)" [passwordInvalid]="passwordInvalid"></app-locker>
     </div>
   </div>
 </div>

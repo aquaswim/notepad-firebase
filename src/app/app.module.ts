@@ -8,11 +8,13 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFireDatabaseModule, USE_EMULATOR as USE_DATABASE_EMULATOR} from '@angular/fire/database';
 import {AngularFirePerformanceModule, PerformanceMonitoringService} from '@angular/fire/performance';
+import { LockerComponent } from './locker/locker.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TexteditorComponent
+    TexteditorComponent,
+    LockerComponent
   ],
   imports: [
     BrowserModule,

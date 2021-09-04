@@ -16,9 +16,10 @@ export class AppComponent implements OnInit, OnDestroy{
   id: string;
   noteUpdateListener: Subscription;
   text = '';
-  isProtected = true;
-  password = 'password';
+  isProtected = false;
+  password = '';
   unlocked = true;
+  passwordInvalid = false;
 
   constructor(private router: NativeRouterService, private noteService: NoteService) {}
 
@@ -49,11 +50,22 @@ export class AppComponent implements OnInit, OnDestroy{
       .noteService
       .getNoteListener(this.id)
       .subscribe(value => {
+        // cek is it new note or not
+        if (!value) {
+          return;
+        }
+
         this.isProtected = value.protected;
         if (this.isProtected) {
           this.text = decrypt(value.text, this.password);
+          if (this.text === null) {
+            // locked text
+            this.text = value.text;
+            this.unlocked = false;
+          }
         } else {
           this.text = value.text;
+          this.unlocked = true;
         }
         this.isLoading = false;
       });
@@ -70,5 +82,16 @@ export class AppComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this.noteUpdateListener.unsubscribe();
+  }
+
+  cekPassword(password: string): void {
+    const content = decrypt(this.text, password);
+    if (content) {
+      this.unlocked = true;
+      this.password = password;
+      this.text = content;
+    } else {
+      this.passwordInvalid = true;
+    }
   }
 }
