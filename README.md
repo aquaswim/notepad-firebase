@@ -25,4 +25,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Todo
 
 * download button
-* Password protected note
+* Password protected note (done)
