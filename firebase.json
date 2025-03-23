@@ -1,34 +1,22 @@
 {
-  "database": {
-    "rules": "database.rules.json"
-  },
-  "hosting": {
-    "public": "dist",
-    "predeploy": "npm --prefix \"$PROJECT_DIR\" run build -- --prod",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
-  "emulators": {
-    "database": {
-      "port": 9000
-    },
     "hosting": {
-      "port": 5000
+        "predeploy": [
+            "npm run build"
+        ],
+        "public": "dist",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
     },
-    "ui": {
-      "enabled": true
+    "database": {
+        "rules": "database.rules.json"
     }
-  },
-  "remoteconfig": {
-    "template": "remoteconfig.template.json"
-  }
 }
