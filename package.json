@@ -12,9 +12,11 @@
   "dependencies": {
     "@lexical/react": "^0.28.0",
     "@picocss/pico": "^2.1.1",
+    "firebase": "^11.5.0",
     "lexical": "^0.28.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "use-debounce": "^10.0.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

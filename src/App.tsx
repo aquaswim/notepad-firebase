@@ -1,10 +1,13 @@
 import Container from "./Container.tsx";
-import Editor from "./Editor.tsx";
+import {getCurrentDocID} from "./utils.ts";
+import Home from "./Home.tsx";
+import TextBox from "./TextBox.tsx";
 
 function App() {
+    const docId = getCurrentDocID();
     return (
         <Container fluid>
-            <Editor/>
+            {!docId ? <Home/> : <TextBox documentID={docId}/>}
         </Container>
     )
 }

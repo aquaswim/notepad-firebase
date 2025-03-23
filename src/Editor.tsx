@@ -8,6 +8,10 @@ import {ContentEditable} from '@lexical/react/LexicalContentEditable';
 import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
 import {LexicalErrorBoundary} from '@lexical/react/LexicalErrorBoundary';
 
+import './editor.css';
+import {OnChangePlugin} from "@lexical/react/LexicalOnChangePlugin";
+import {EditorState} from "lexical";
+
 const theme = {
     // Theme styling goes here
     //...
@@ -21,6 +25,11 @@ function onError(error: unknown) {
 }
 
 function Editor() {
+    const onChange = (editorState: EditorState) => {
+        console.log(editorState.toJSON());
+        // console.log(JSON.stringify(editorState.toJSON(), null, 2))
+    }
+
     const initialConfig = {
         namespace: 'MyEditor',
         theme,
@@ -43,6 +52,7 @@ function Editor() {
                     />
                     <HistoryPlugin />
                     <AutoFocusPlugin />
+                    <OnChangePlugin onChange={onChange}/>
                 </div>
             </div>
         </LexicalComposer>
