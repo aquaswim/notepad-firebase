@@ -9,27 +9,34 @@ interface TextBoxProps {
 }
 
 function TextBox(props: TextBoxProps) {
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [text, setText] = useState("")
     const debouncedSave = useDebouncedCallback((value: string) => {
         return update(ref(database, props.documentID), {text: value})
     }, 1000, {maxWait: 5000})
 
     useEffect(() => {
-        let unsub: ReturnType<typeof onValue> | undefined;
-        setIsLoading(true);
-        (async () => {
-            const docRef = ref(database, props.documentID)
-            const docSnap = await get(docRef);
-            setText(docSnap.val().text)
-            unsub = onValue(docRef, value => setText(value.val().text))
-        })()
-            .finally(() => setIsLoading(false))
-        return () => {
-            if (unsub) {
-                unsub();
-                debouncedSave.flush();
+        let isActive = true;
+        const docRef = ref(database, props.documentID);
+        const unsubscribe = onValue(docRef, (snapshot) => {
+            if (!isActive) {
+                return;
             }
+
+            setText(snapshot.val()?.text ?? "");
+            setIsLoading(false);
+        });
+
+        get(docRef).catch(() => {
+            if (isActive) {
+                setIsLoading(false);
+            }
+        });
+
+        return () => {
+            isActive = false;
+            unsubscribe();
+            debouncedSave.flush();
         }
     }, [debouncedSave, props.documentID]);
     const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
