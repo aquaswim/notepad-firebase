@@ -2,3 +2,24 @@
     min-height: 80vh;
     margin-top: 1rem;
 }
+
+.note-toolbar {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.note-password-panel {
+    margin: 4rem auto;
+    max-width: 32rem;
+}
+
+.note-password-panel form {
+    display: grid;
+    gap: .75rem;
+}
+
+.note-error {
+    color: #b42318;
+}
