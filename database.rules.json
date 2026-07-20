@@ -3,8 +3,12 @@
     "$note": {
       ".read": true,
       ".write": true,
-      "text": { ".validate": true },
-      "protected": { ".validate": true },
+      ".validate": "newData.hasChildren(['text']) || newData.hasChildren(['secret', 'encryptedText', 'salt', 'iv'])",
+      "text": { ".validate": "newData.isString()" },
+      "secret": { ".validate": "newData.val() === true" },
+      "encryptedText": { ".validate": "newData.isString()" },
+      "salt": { ".validate": "newData.isString()" },
+      "iv": { ".validate": "newData.isString()" },
       "$other": { ".validate": false }
     }
   }

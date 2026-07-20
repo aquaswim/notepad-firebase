@@ -43,3 +43,20 @@ devbox run npm run build
 ```
 
 `npm audit --omit=dev` verifies the production dependency graph without reporting development-tool-only findings.
+
+## Password-protected notes
+
+Open a normal note and select **Protect with password** to encrypt it. The browser derives an AES-256-GCM encryption key from the password using PBKDF2/SHA-256 and stores only the encrypted text, unique salt, and IV in Firebase. The password and encryption key are never written to Firebase; the key only remains in the current browser page's memory after unlocking.
+
+Firebase stores protected notes in this form:
+
+```json
+{
+  "secret": true,
+  "encryptedText": "...",
+  "salt": "...",
+  "iv": "..."
+}
+```
+
+Passwords cannot be recovered. This feature provides content confidentiality for Firebase data, but the default database rules still allow anyone with a document ID to read or overwrite that location. Use Firebase Authentication and restrictive database rules when you also need access control and tamper resistance.

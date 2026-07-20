@@ -7,7 +7,7 @@ function App() {
     const docId = getCurrentDocID();
     return (
         <Container fluid>
-            {!docId ? <Home/> : <TextBox documentID={docId}/>}
+            {!docId ? <Home/> : <TextBox key={docId} documentID={docId}/>}
         </Container>
     )
 }
