@@ -2,9 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
   "packages": [
     "nodejs@22.14.0",
-    "firebase-tools@13.34.0",
-    "jetbrains.webstorm@2024.3.4",
-    "git@latest"
+    "firebase-tools@13.34.0"
   ],
   "shell": {
     "init_hook": [
