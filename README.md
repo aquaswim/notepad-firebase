@@ -12,7 +12,7 @@ A lightweight realtime notepad built with React, TypeScript, Vite, and Firebase 
 1. Install dependencies:
 
    ```sh
-   devbox run npm install
+   devbox run setup
    ```
 
 2. Copy `.env.example` to `.env.local` and populate it with your Firebase web-app configuration values.
@@ -20,13 +20,13 @@ A lightweight realtime notepad built with React, TypeScript, Vite, and Firebase 
 3. Start the development server:
 
    ```sh
-   devbox run npm run dev
+   devbox run dev
    ```
 
 ## Available commands
 
 ```sh
-devbox run npm run dev      # Run the Vite development server on port 3000
+devbox run dev              # Run the Vite development server on port 3000
 devbox run npm run build    # Type-check and create a production build
 devbox run npm run lint     # Run ESLint's flat configuration
 devbox run npm run preview  # Serve the production build locally
