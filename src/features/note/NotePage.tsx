@@ -137,6 +137,9 @@ function NotePage(props: NotePageProps) {
     };
 
     const placeHolder = isLoading ? "Loading..." : "Type your note here..."
+    if (isLoading) {
+        return <div className="loading-state">Loading</div>;
+    }
     if (mode === "unlock") {
         return <section className="note-password-panel">
             <h1>Protected note</h1>
