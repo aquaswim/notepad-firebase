@@ -1,11 +1,11 @@
 import {get, onValue, ref, set} from "firebase/database";
-import "./TextBox.css"
+import "./NotePage.css"
 import {SubmitEvent, useEffect, useRef, useState} from "react";
-import {database} from "./firebase.ts";
+import {database} from "@/lib/firebase.ts";
 import {useDebouncedCallback} from "use-debounce";
-import {createEncryptionKey, decryptText, encryptText, EncryptedNoteContent} from "./crypto.ts";
+import {createEncryptionKey, decryptText, encryptText, EncryptedNoteContent} from "@/lib/crypto.ts";
 
-interface TextBoxProps {
+interface NotePageProps {
     documentID: string;
 }
 
@@ -25,7 +25,7 @@ function isSecretNote(value: unknown): value is SecretNote {
         && typeof note.iv === "string";
 }
 
-function TextBox(props: TextBoxProps) {
+function NotePage(props: NotePageProps) {
     const [isLoading, setIsLoading] = useState(true)
     const [text, setText] = useState("")
     const [secretNote, setSecretNote] = useState<SecretNote | null>(null);
@@ -183,4 +183,4 @@ function TextBox(props: TextBoxProps) {
     );
 }
 
-export default TextBox;
+export default NotePage;
