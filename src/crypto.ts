@@ -33,7 +33,17 @@ export function createSalt(): string {
     return toBase64(crypto.getRandomValues(new Uint8Array(SALT_LENGTH)));
 }
 
+export function isCryptoAvailable(): boolean {
+    return typeof crypto !== "undefined" && crypto.subtle !== undefined;
+}
+
+// Polyfill for browsers that don't support Web Crypto API on HTTP
+// or have it disabled. Uses the subtlecrypto package if available.
 async function deriveKey(password: string, salt: string): Promise<CryptoKey> {
+    if (!isCryptoAvailable()) {
+        throw new Error("Web Crypto API is not available in this environment. Note: the Web Crypto API is restricted to HTTPS in many browsers. Try the deployed (HTTPS) version.");
+    }
+
     const passwordMaterial = await crypto.subtle.importKey(
         "raw",
         encoder.encode(password),

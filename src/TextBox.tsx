@@ -102,7 +102,7 @@ function TextBox(props: TextBoxProps) {
             formElement.reset();
         } catch (error: unknown) {
             console.error("Unable to unlock protected note:", error);
-            setError("Incorrect password or corrupted protected note.");
+            setError(error instanceof Error ? error.message : "Unable to unlock protected note.");
         }
     };
 
